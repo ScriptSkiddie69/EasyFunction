@@ -78,3 +78,4 @@ local Custom = {
     --Custom.Functions:Teleport(Custom.Check:GetNearestPlayer()) -- the getnearestplayer function will get the nearest player and it will teleport
     --Custom.Functions:Teleport('roblox') -- teleports to a player named roblox
     --Custom.Visuals:HighlightEsp('plrname example roblox',Color3.new(8, 255, 241)) -- this will enable esp to the target
+return Custom
