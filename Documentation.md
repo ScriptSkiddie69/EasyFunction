@@ -71,10 +71,10 @@ FuncLib.Functions:SetJumpPower(120) -- whatever u wanna set ur jumppower to
 ```
 ## Making a teleport aura loop function
 ```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
 function tpaura()
 FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer())
 end
-local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
 -- FuncLib.Functions:SetLoop(Delay, bool, loopname, Function) -- This is what it looks like
 FuncLib.Functions:SetLoop(1, true, "ThisShouldBeRandomOnEveryLoop", tpaura) -- this will repeatedly teleports to the nearest player
 ```
