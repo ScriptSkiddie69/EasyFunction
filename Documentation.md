@@ -13,7 +13,7 @@ FuncLib.Visuals:HighlightEsp('PlayerName',Color3.new(8, 255, 241)) -- u can chan
 ## Creating a highlight esp to all players
 ```lua
 local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
-for i,v in pairs(game.Players:GetPlayers()) -- gets all player
+for i,v in pairs(game.Players:GetPlayers()) do -- gets all player
 if v.Character v.Name ~= game.Players.LocalPlayer.Name then -- check if the player have a character and is not yourself
 FuncLib.Visuals:HighlightEsp(v.Name,Color3.new(8, 255, 241)) -- creates a highlight esp
    end
