@@ -75,12 +75,12 @@ function tpaura()
 FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer())
 end
 local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
--- Custom.Functions:SetLoop(Delay, bool, loopname, Function) -- This is what it looks like
-Custom.Functions:SetLoop(1, true, "ThisShouldBeRandomOnEveryLoop", tpaura) -- this will repeatedly teleports to the nearest player
+-- FuncLib.Functions:SetLoop(Delay, bool, loopname, Function) -- This is what it looks like
+FuncLib.Functions:SetLoop(1, true, "ThisShouldBeRandomOnEveryLoop", tpaura) -- this will repeatedly teleports to the nearest player
 ```
 ## Disabling the same loop 
 ```lua
 local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
-Custom.Functions:SetLoop(1, false, "ThisShouldBeRandomOnEveryLoop", FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer()))
+FuncLib.Functions:SetLoop(1, false, "ThisShouldBeRandomOnEveryLoop", FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer()))
 ```
 it should be the same loopname if u wanna enable/disable it if its something else it will do nothing
