@@ -65,3 +65,5 @@ local Custom = {
             print(player.Name) -- this will print all the player 
         end
     end)
+
+return Custom
