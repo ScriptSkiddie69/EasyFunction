@@ -60,10 +60,21 @@ local Custom = {
     local character = GetPlayer(player).Character
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame
     end
-    Custom.Player:GetAllPlayer(function(players)
-        for _, player in ipairs(players) do -- DONT TOUCH ANYTHING ONLY IF U KNOW WHAT YOURE DOING
-            print(player.Name) -- this will print all the player 
+    function Custom.Functions:SetWalkSpeed(number)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = number
+    end
+    function Custom.Functions:SetJumpPower(number)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = number
+    end
+    function Custom.Functions:SetLoop(Delay, bool, loopname, Function)
+        _G[loopname] = bool
+        while _G[loopname] do
+            wait(Delay)
+            Function()
         end
-    end)
-
-return Custom
+    end
+    
+    --Custom.Check:GetNearestPlayer() -- this will get the nearest player
+    --Custom.Functions:Teleport(Custom.Check:GetNearestPlayer()) -- the getnearestplayer function will get the nearest player and it will teleport
+    --Custom.Functions:Teleport('roblox') -- teleports to a player named roblox
+    --Custom.Visuals:HighlightEsp('plrname example roblox',Color3.new(8, 255, 241)) -- this will enable esp to the target
