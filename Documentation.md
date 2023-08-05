@@ -52,8 +52,32 @@ FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer())
 ```
 ## Example on making a killaura script using the nearest player function
 ```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+
 local args = {
     player = FuncLib.Check:GetNearestPlayer()
 }
 game.ReplicatedStorage.Remotes.KillRemote:FireServer(unpack(args)) -- Note this does not work on any game as it is just an example
 ```
+## Setting walkspeed value to a different one
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+FuncLib.Functions:SetWalkSpeed(120) -- whatever u wanna set ur walkspeed to
+```
+## Setting jumppower value to a different one
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+FuncLib.Functions:SetJumpPower(120) -- whatever u wanna set ur jumppower to
+```
+## Making a teleport aura loop function
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+-- Custom.Functions:SetLoop(Delay, bool, loopname, Function) -- This is what it looks like
+Custom.Functions:SetLoop(1, true, "ThisShouldBeRandomOnEveryLoop", FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer())) -- this will repeatedly teleports to the nearest player
+```
+## Disabling the same loop 
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+Custom.Functions:SetLoop(1, false, "ThisShouldBeRandomOnEveryLoop", FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer()))
+```
+it should be the same loopname if u wanna enable/disable it if its something else it will do nothing
