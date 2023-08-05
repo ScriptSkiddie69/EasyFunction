@@ -33,11 +33,15 @@ local Custom = {
     
     function Custom.Visuals:HighlightEsp(player,color)
     local character = GetPlayer(player).Character
+    if character:FindFirstChild('MkRtLpAerTiyj') then
+        print('noo')
+    else
     local highlight = Instance.new('Highlight')
     highlight.Parent = character
     highlight.Name = "MkRtLpAerTiyj"
     highlight.FillColor = color
     end
+end
     function Custom.Visuals:DisableEsp(player)
         local character = GetPlayer(player).Character
         character:FindFirstChild('MkRtLpAerTiyj'):Destroy()
@@ -78,4 +82,6 @@ local Custom = {
     --Custom.Functions:Teleport(Custom.Check:GetNearestPlayer()) -- the getnearestplayer function will get the nearest player and it will teleport
     --Custom.Functions:Teleport('roblox') -- teleports to a player named roblox
     --Custom.Visuals:HighlightEsp('plrname example roblox',Color3.new(8, 255, 241)) -- this will enable esp to the target
+
+
 return Custom
