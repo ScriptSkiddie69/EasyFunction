@@ -283,7 +283,11 @@ mt.__index = function(object, property)
 
     end
 end
+
+return Custom
+
 --[[Custom.Functions:HookValue('Humanoid','WalkSpeed',1200)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 69
 print(game.Players.LocalPlayer.Character.Humanoid.WalkSpeed)
 -- this should return 69 but we hooked the value so it returns 1200 tho in reality the walkspeed is 69]]
+
