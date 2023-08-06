@@ -1,9 +1,185 @@
+
+
 local Custom = {
     Functions = {},
     Visuals = {},
     Player = {},
     Check = {},
     Bool = {}
+    }
+    local allProperties = {
+        Part = {
+            "ClassName",
+            "Name",
+            "Archivable",
+            "Parent",
+            "RobloxLocked",
+            "Size",
+            "Position",
+            "Orientation",
+            "Anchored",
+            "CanCollide",
+            "Locked",
+            "Material",
+            "BrickColor",
+            "Transparency",
+            "Reflectance",
+            "CanTouch",
+            "BottomSurface",
+            "TopSurface",
+            "LeftSurface",
+            "RightSurface",
+            "FrontSurface",
+            "BackSurface",
+        },
+        Humanoid = {
+            "ClassName",
+            "Name",
+            "Archivable",
+            "Parent",
+            "RobloxLocked",
+            "HipHeight",
+            "Health",
+            "MaxHealth",
+            "WalkSpeed",
+            "JumpPower",
+            "RootPart",
+            "RigType",
+            "Sit",
+            "PlatformStand",
+            "TargetPoint",
+            "PlatformWeld",
+            "SeatPart",
+            "Jump",
+            "MoveDirection",
+            "RelativeJointTorque",
+            "RelativeJointPosition",
+            "FloorMaterial",
+            "Animator",
+            "MaxSlope",
+            "Climbing",
+            "Died",
+            "Running",
+            "Swimming",
+            "Jumping",
+            "GettingUp",
+            "FallingDown",
+            "FreeFalling",
+            "Ragdoll",
+            "PlatformStanding",
+            "Sitting",
+        },
+        Mesh = {
+            "ClassName",
+            "Name",
+            "Archivable",
+            "Parent",
+            "RobloxLocked",
+            "MeshId",
+            "TextureId",
+            "VertexColor",
+            "VertexSize",
+            "VertexSizeRelativeToPart",
+            "Offset",
+            "Scale",
+            "Orientation",
+            "MeshType",
+            "MeshScale",
+            "TextureMode",
+            "VertexColorMode",
+            "VertexNormal",
+        },
+        Model = {
+            "Name",
+            "Parent",
+            "PrimaryPart",
+            "Archivable",
+            "ClassName",
+            "WorldPivot",
+        }, 
+        MeshPart = {
+            "Anchored",
+            "CanCollide",
+            "CFrame",
+            "Material",
+            "Size",
+            "Transparency",
+            "BrickColor",
+            "Name",
+            "Parent",
+            "Position",
+            "Orientation",
+            "Velocity",
+            "RotVelocity",
+            "FormFactor",
+            "Shape",
+            "BottomSurface",
+            "TopSurface",
+            "FrontSurface",
+            "BackSurface",
+            "LeftSurface",
+            "RightSurface",
+            "CustomPhysicalProperties",
+            "EulerAngles",
+            "SizeConstraint",
+            "Transparency",
+            "CanQuery",
+            "CanTouch",
+            "Archivable",
+            "Locked",
+            "Shape",
+            "Massless",
+            "LocalTransparencyModifier",
+            "Reflectance",
+            "RootPriority",
+            "MeshId",
+            "MeshSize",
+            "MeshType",
+            "TextureID",
+            "VertexColor",
+            "VertexColor3",
+            "VertexSize",
+        }, 
+        IntValue = {
+                "ClassName",
+                "Name",
+                "Archivable",
+                "Parent",
+                "RobloxLocked",
+                "Value",
+            },
+            NumberValue = {
+                "ClassName",
+                "Name",
+                "Archivable",
+                "Parent",
+                "RobloxLocked",
+                "Value",
+            },
+            BoolValue = {
+                "ClassName",
+                "Name",
+                "Archivable",
+                "Parent",
+                "RobloxLocked",
+                "Value",
+            },
+            StringValue = {
+                "ClassName",
+                "Name",
+                "Archivable",
+                "Parent",
+                "RobloxLocked",
+                "Value",
+            },
+            ObjectValue = {
+                "ClassName",
+                "Name",
+                "Archivable",
+                "Parent",
+                "RobloxLocked",
+                "Value",
+            },
     }
     function GetPlayer(String)
         local plr
@@ -77,11 +253,37 @@ end
             Function()
         end
     end
-    
-    --Custom.Check:GetNearestPlayer() -- this will get the nearest player
-    --Custom.Functions:Teleport(Custom.Check:GetNearestPlayer()) -- the getnearestplayer function will get the nearest player and it will teleport
-    --Custom.Functions:Teleport('roblox') -- teleports to a player named roblox
-    --Custom.Visuals:HighlightEsp('plrname example roblox',Color3.new(8, 255, 241)) -- this will enable esp to the target
+        function Custom.Functions:GetProperties(instance)
+            local class = instance.ClassName
+            local properties = allProperties[class]
+        
+            if properties then
+                local retrn = {}
+                for _, property in ipairs(properties) do
+                    retrn[property] = instance[property]
+                end
+                return retrn
+            else
+                print("properties not supported, name: " .. class)
+            end
+        end
+        function Custom.Functions:HookValue(obj,prop,value)
+            local mt = getrawmetatable(game)
+
+setreadonly(mt, false)
+local old = mt.__index
+
+mt.__index = function(object, property)
+ if tostring(object) == tostring(obj) and tostring(property) == tostring(prop) then
+     return value
+   end
+
+ return old(object,property)
 
 
-return Custom
+    end
+end
+--[[Custom.Functions:HookValue('Humanoid','WalkSpeed',1200)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 69
+print(game.Players.LocalPlayer.Character.Humanoid.WalkSpeed)
+-- this should return 69 but we hooked the value so it returns 1200 tho in reality the walkspeed is 69]]
