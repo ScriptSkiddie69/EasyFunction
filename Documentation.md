@@ -83,4 +83,40 @@ FuncLib.Functions:SetLoop(1, true, "ThisShouldBeRandomOnEveryLoop", tpaura) -- t
 local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
 FuncLib.Functions:SetLoop(1, false, "ThisShouldBeRandomOnEveryLoop", FuncLib.Functions:Teleport(FuncLib.Check:GetNearestPlayer()))
 ```
+
+## Getting all properties
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+-- Example we have a part called ball
+for property,value in pairs(FuncLib.Functions:GetProperties(game.Workspace.Ball)) do
+    print(property,value) -- this will return the property and the value
+    print(property) -- this will return only the property 
+end
+```
 it should be the same loopname if u wanna enable/disable it if its something else it will do nothing
+
+## Hooking properties value
+it uses hookfunction and it looks like this FuncLib.Functions:HookValue(object,properties,value)
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+FuncLib.Functions:HookValue('Humanoid','WalkSpeed',1200)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 69
+print(game.Players.LocalPlayer.Character.Humanoid.WalkSpeed)
+-- this should return 69 but we hooked the value so it returns 1200 tho in reality the walkspeed is 69
+-- youll stil walk at 69 walkspeed instead of 1200
+```
+
+## Hooking all of the properties at once
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+-- We will need to use the getproperties() function at the above ive explained
+-- example were hooking ur humanoid properties
+local humanoid = game.Players.LocalPlayer.Character.Humanoid
+
+-- Now we will need to make a for loop so we can use the getproperties() function
+
+for property,value in pairs(FuncLib.Functions:GetProperties(humanoid)) do -- this is how to use the getproperties function now dont forget the instance at the above
+FuncLib.Functions:HookValue(humanoid,property,1200)-- heres the fun stuff we will hook every properties the humanoid have we will need to use humanoid for the first argument, we will need to use property for the second argument, for the third any value u want, now we've successfuly hooked the property and value nice!
+end
+```
+
