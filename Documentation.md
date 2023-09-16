@@ -120,3 +120,85 @@ FuncLib.Functions:HookValue(humanoid,property,1200)-- heres the fun stuff we wil
 end
 ```
 
+## AntiKick function However this isnt very effective allthough u can try
+
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+FuncLib.Functions:AntiKick("hook") -- all methods: remote, hook
+```
+
+## Checking if property exists
+
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+
+--FuncLib.Functions:CheckProperty(instance,property)
+-- the instance MUST BE an instance not string or else it wont do nothing.
+if FuncLib.Functions:CheckProperty(game.Players.LocalPlayer.Character.HumanoidRootPart,"CFrame") then -- returns true if the instance has that property
+print('property exists!')
+end
+```
+
+## Checking if an instance is destroyed
+
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+
+FuncLib.Functions:IsPartDestroyed({
+    part = "game.Workspace.Part",
+    connection = "wtf", -- ignore connection for now we'll get to that later
+    callback = function(t)
+        print(t) -- This will print true or false based on whether the part is destroyed or not
+      --PUT UR CODE HERE IT WILL ONLY RUN IF game.Workspace.Part is destroyed
+    end
+})
+```
+## Checking if a child of an instance is added
+
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+
+Custom.Functions:ChildAdded({
+    instance = game.Players.LocalPlayer.Character,
+    connection = "abcd", -- Lets ignore the connection for now, we'll get into that later
+    callback = function(t)
+        print(t) -- will print the child that added example basepart added to the instance
+       -- PUT UR CODE HERE IT WILL ONLY RUN IF a child is added on game.Players.LocalPlayer.Character or the instance uve put
+    end
+})
+```
+
+## Checking if a descendant of an instance is added
+
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+
+Custom.Functions:DescendantAdded({
+    instance = game.Players.LocalPlayer.Character,
+    connection = "abcd", -- ignore connection for now we'll get into that later
+    callback = function(t)
+        print(t) -- Will print whenever a descendant is added
+         -- PUT YOUR CODE HERE IT WILL ONLY RUN if a descendant is added on game.Players.LocalPlayer.Character or in the instance uve put
+end
+})
+
+```
+
+## Disconnecting a connection or a function uve ran 
+```lua
+local FuncLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/ScriptSkiddie69/EasyFunction/main/Source'))()
+
+-- Example youve ran descendantadded function
+
+Custom.Functions:DescendantAdded({
+    instance = game.Players.LocalPlayer.Character,
+    connection = "abcd", -- ignore connection for now we'll get into that later
+    callback = function(t)
+        print(t) -- Will print whenever a descendant is added
+         -- PUT YOUR CODE HERE IT WILL ONLY RUN if a descendant is added on game.Players.LocalPlayer.Character or in the instance uve put
+end
+
+-- Now what we're gonna do is get the connection of that DescendantAdded, its abcd right?, okay now we're gonna disconnect it so it wont run
+
+Custom.Functions:Disconnect('abcd') -- disconnects the function
+```
