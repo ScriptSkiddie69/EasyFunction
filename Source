@@ -181,6 +181,57 @@ local Custom = {
                 "Value",
             },
     }
+    local CheckName = {
+        Human = {
+            "Humanoid",
+            "Head",
+            "Left Arm",
+            "Right Arm",
+            "Left Leg",
+            "Right Leg",
+            "HumanoidRootPart",
+            "Torso",
+            "LeftFoot",
+            "LeftHand",
+            "LeftLowerArm",
+            "LeftLowerLeg",
+            "LeftUpperLeg",
+            "LeftUpperArm",
+            "LeftLowerArm",
+            "LowerTorso",
+            "RightFoot",
+            "RightHand",
+            "RightLowerArm",
+            "RightLowerLeg",
+            "RightUpperArm",
+            "RightUpperLeg",
+            "UpperTorso"
+        },
+        BasePart = {
+        "ClassName",
+        "Name",
+        "Archivable",
+        "Parent",
+        "RobloxLocked",
+        "Size",
+        "Position",
+        "Orientation",
+        "Anchored",
+        "CanCollide",
+        "Locked",
+        "Material",
+        "BrickColor",
+        "Transparency",
+        "Reflectance",
+        "CanTouch",
+        "BottomSurface",
+        "TopSurface",
+        "LeftSurface",
+        "RightSurface",
+        "FrontSurface",
+        "BackSurface"
+    }
+}
     function GetPlayer(String)
         local plr
         local strl = String:lower()
@@ -205,7 +256,6 @@ local Custom = {
             end
         return plr
     end
-    
     
     function Custom.Visuals:HighlightEsp(player,color)
     local character = GetPlayer(player).Character
@@ -283,11 +333,193 @@ mt.__index = function(object, property)
 
     end
 end
+function Custom.Functions:CheckType(obj) -- Human, BasePart
+    local test = {}
+    for i,v in pairs(CheckName[obj]) do
+        table.insert(test,v)
+        --print(test)
+    end
+    return test
+end
+local r = game.Players.LocalPlayer.Kick
+function Custom.Functions:AntiKick(method) -- [methods, hook, remote, manual, auto] (note this wont be very effective)
+    method = method:lower()
+if method == "hook" then
+    local oldf
+
+oldf = hookmetamethod(game,"__namecall", function(self, ...)
+    if self == game.Players.LocalPlayer and getnamecallmethod() == "Kick" or getnamecallmethod == "kick" then
+        return print('Blud really tried to kick u on the client laugh at him :skull:')
+    end
+    return oldf(self, ...)
+end)
+elseif method == "remote" then
+    local oldf
+    oldf = hookmetamethod(game,"__namecall", function(self, ...)
+        local nm = getnamecallmethod()
+        if nm == "FireServer" and nm == "Kick" or nm == "kick" then
+            return print('Blud tried kicking u 💀💀💀🔥🔥')
+        end
+        return oldf(self, ... )
+    end)
+--[[elseif method == "manual" then
+    local oldf
+    oldf = hookmetamethod(game,"__namecall", function(self, ...)
+        local nm = getnamecallmethod()
+        if nm == "FireServer" and nm:lower() == "Kick" then
+            return print('Blud tried kicking u 💀💀💀🔥🔥')
+        end
+        return oldf(self, ...)
+    end)]]
+end
+end
+function Custom.Functions:CheckProperty(instance,property)
+    if instance[property] then
+        return true
+    else
+        return false
+    end
+end
+function Custom.Functions:Disconnect(connection)
+    getgenv()[connection] = false
+end
+function Custom.Functions:IsPartDestroyed(params)
+    getgenv()[params.connection] = true
+    while getgenv()[params.connection] do wait()
+    local instancePath = params.part
+    local callback = params.callback
+
+    local parts = {game}
+    local pathElements = instancePath:split(".")
+    for _, element in ipairs(pathElements) do
+        local nextParts = {}
+        
+        for _, part in ipairs(parts) do
+            if element == "game" then
+                table.insert(nextParts, game)
+            elseif part and part:FindFirstChild(element) then
+                table.insert(nextParts, part:FindFirstChild(element))
+            end
+        end
+        
+        if #nextParts == 0 then
+            callback(true)
+            return
+        end
+        
+        parts = nextParts
+    end
+    
+    callback(false)
+end
+end
+Custom.Functions:IsPartDestroyed({
+    part = "game.Workspace.Part",
+    connection = "wtf",
+    callback = function(t)
+        print(t) -- This will print true or false based on whether the part is destroyed or not
+    end
+})
+--[[
+    example of disconnect function:
+        Custom.Functions:Disconnect("wtf") <<<<<-------------------
+
+IsPartDestroyed({
+    part = "game.Workspace.Part",
+    connection = "wtf",
+    callback = function(t)
+        print(t) -- This will print true or false based on whether the part is destroyed or not
+    end
+
+})]]
+--
+--
+function Custom.Functions:ChildAdded(params)
+    local callback = params.callback
+    local instance = params.instance
+    local connection = params.connection
+    getgenv()[connection] = true
+local oldchild = {}
+for i,v in pairs(instance:GetChildren()) do
+    oldchild[v] = true
+end
+while getgenv()[connection] do wait(0.1)
+local child = {}
+for i,v in pairs(instance:GetChildren()) do
+    child[v] = true
+end
+for i,v in pairs(child) do
+if not oldchild[i] then
+--print('nun')
+--callback('no part is added')
+    print('new part added')
+    callback(i)
+end
+end
+
+oldchild = child
+end
+end
+--[[
+Custom.Functions:ChildAdded({
+    instance = game.Players.LocalPlayer.Character,
+    connection = "abcd",
+    callback = function(t)
+        print(t)
+    end
+})
+
+]]
+
+--------
+
+function Custom.Functions:DescendantAdded(params)
+    local callback = params.callback
+    local instance = params.instance
+    local connection = params.connection
+    getgenv()[connection] = true
+local olddesc = {}
+for i,v in pairs(instance:GetDescendants()) do
+    olddesc[v] = true
+end
+while getgenv()[connection] do wait(0.1)
+local desc = {}
+for i,v in pairs(instance:GetDescendants()) do
+    desc[v] = true
+end
+for i,v in pairs(desc) do
+if not olddesc[i] then
+--print('nun')
+--callback('no part is added')
+    print('new descendants added')
+    callback(i)
+end
+end
+
+olddesc = desc
+end
+end
+
+--[[Custom.Functions:DescendantAdded({
+    instance = game.Players.LocalPlayer.Character,
+    connection = "abcd",
+    callback = function(t)
+        print(t) -- prints whenever an instance is added
+    end
+})]]
+--------
+--print(Custom.Functions:CheckProperty(game.Workspace.Unknown,"CanCollide"))
+
+--[[for i,v in pairs(Custom.Functions:CheckType('Human')) do
+    print(i,v)
+end]]
+
+--[[oldf = hookfunction(game.Players.LocalPlayer.Kick, function(...)
+return print('bro really tried to kick u on the client LMFAO')
+end)]]
 
 return Custom
-
 --[[Custom.Functions:HookValue('Humanoid','WalkSpeed',1200)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 69
 print(game.Players.LocalPlayer.Character.Humanoid.WalkSpeed)
 -- this should return 69 but we hooked the value so it returns 1200 tho in reality the walkspeed is 69]]
-
